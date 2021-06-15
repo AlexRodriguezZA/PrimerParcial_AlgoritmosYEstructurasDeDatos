@@ -1,3 +1,28 @@
+def __criterio(dato, criterio):
+    if(criterio is None):
+        return dato
+    else:
+        return dato[criterio]
+
+def quicksort(vector, inicio, fin, criterio):
+    primero = inicio
+    ultimo = fin -1
+    pivote = fin
+    while(primero < ultimo):
+        while(__criterio(vector[primero], criterio) <= __criterio(vector[pivote], criterio) and primero <= ultimo):
+            primero += 1
+        while(__criterio(vector[ultimo], criterio) > __criterio(vector[pivote], criterio) and ultimo >= primero):
+            ultimo -= 1
+        if(primero < ultimo):
+            vector[primero], vector[ultimo] = vector[ultimo], vector[primero]
+    if(__criterio(vector[pivote], criterio) < __criterio(vector[primero], criterio)):
+        vector[primero], vector[pivote] = vector[pivote], vector[primero]
+
+    if(inicio < primero):
+        quicksort(vector, inicio, primero -1, criterio)
+    if(fin > primero):
+        quicksort(vector, primero + 1, fin, criterio)
+        
 class Lista(object):
     """Crea un objeto de tipo lista"""
     def __init__(self):
@@ -8,7 +33,7 @@ class Lista(object):
             return dato;
         else:
             return dato[criterio];
-    
+        
     def insertar(self , dato, criterio = None): #!Tenemos que tener en cuenta de que la inserción este ordenada
         if(len(self.__elementos) == 0):
             self.__elementos.append(dato)
